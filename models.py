@@ -1,10 +1,12 @@
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
+from config import USER, PASSWORD, HOST, DB_NAME
 
 # DB
-engine = create_engine("sqlite:///teste.db")
+engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}", echo=True)
+engine.execute(f"CREATE DATABASE {DB_NAME}")
+engine.execute(f"USE {DB_NAME}")
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
